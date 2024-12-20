@@ -1,0 +1,2 @@
+meson build
+./doca_flow_rss_meta -a auxiliary:mlx5_core.sf.18,dv_flow_en=2 -a auxiliary:mlx5_core.sf.18,dv_flow_en=2 -- -l 60

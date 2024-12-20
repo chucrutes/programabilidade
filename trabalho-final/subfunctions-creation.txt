@@ -1,0 +1,8 @@
+/opt/mellanox/iproute2/sbin/mlxdevm port add pci/0000:03:00.0 flavour pcisf pfnum 0 sfnum 216
+/opt/mellanox/iproute2/sbin/mlxdevm port function set pci/0000:03:00.0/229420 hw_addr 00:00:00:00:00:18 trust on state active
+echo mlx5_core.sf.18 > /sys/bus/auxiliary/drivers/mlx5_core.sf_cfg/unbind
+echo mlx5_core.sf.18 > /sys/bus/auxiliary/drivers/mlx5_core.sf/bind
+ovs-vsctl add-port ovsbr1 en3f0pf0sf216
+ifconfig enp3s0f0s216 12.12.12.29/24 up
+ovs-ofctl add-flow ovsbr1 ip,nw_src=12.12.12.29,in_port=en3f0pf0sf216,actions=output:p0
+ovs-ofctl add-flow ovsbr1 ip,nw_dst=12.12.12.29,in_port=p0,actions=output:en3f0pf0sf216
